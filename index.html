@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霍兰德职业兴趣测试（192题完整版）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 40px 30px;
+    text-align: center;
+  }
+  .header h1 { font-size: 28px; margin-bottom: 8px; }
+  .header p { opacity: 0.9; font-size: 14px; }
+  
+  .progress-bar {
+    height: 6px;
+    background: #eee;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-text {
+    text-align: center;
+    padding: 8px;
+    font-size: 13px;
+    color: #666;
+    background: #f8f9fa;
+  }
+
+  /* 激活码验证样式 */
+  .code-section {
+    padding: 40px 30px 50px;
+    text-align: center;
+  }
+  .hero-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+  }
+  .code-section h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+  }
+  .code-section .subtitle {
+    color: #888;
+    margin-bottom: 25px;
+    font-size: 14px;
+  }
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 8px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #555;
+  }
+  .feature-icon {
+    font-size: 18px;
+  }
+  .preview-card {
+    background: linear-gradient(135deg, #f0f4ff 0%, #f8f0ff 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+  }
+  .preview-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #667eea;
+  }
+  .preview-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .preview-list li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .code-input-wrapper {
+    display: flex;
+    gap: 10px;
+    max-width: 350px;
+    margin: 0 auto 15px;
+  }
+  .code-input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .code-input:focus {
+    border-color: #667eea;
+  }
+  .code-submit-btn {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .code-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+  .code-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: none;
+  }
+  .stats-bar {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 15px;
+  }
+  .stats-bar strong {
+    color: #e74c3c;
+    font-weight: 600;
+  }
+  .code-info {
+    color: #999;
+    font-size: 13px;
+  }
+  .code-info a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .content { padding: 30px; }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    padding-left: 12px;
+    border-left: 4px solid #667eea;
+  }
+  .section-desc {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding-left: 16px;
+  }
+
+  .question {
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .question:hover { background: #eef2ff; }
+  .question-number {
+    font-weight: 600;
+    color: #667eea;
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+  .question-text { flex: 1; line-height: 1.5; font-size: 15px; }
+  .options {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+  .options label {
+    padding: 6px 14px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .options input { display: none; }
+  .options input:checked + label {
+    background: #667eea;
+    border-color: #667eea;
+    color: #fff;
+  }
+  .options label:hover { border-color: #667eea; }
+
+  .type-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #e0e7ff;
+    color: #4338ca;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 14px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.5); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-secondary {
+    background: #f1f1f1;
+    color: #666;
+  }
+  .btn-secondary:hover { background: #e5e5e5; }
+  .btn-outline {
+    background: #fff;
+    color: #667eea;
+    border: 2px solid #667eea;
+    box-shadow: none;
+  }
+  .btn-outline:hover {
+    background: #f0f4ff;
+    transform: translateY(-2px);
+  }
+
+  /* 6大维度深度解析 */
+  .dimension-analysis {
+    margin-top: 30px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dimension-analysis h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  .dim-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+  }
+  .dim-item:last-child { border-bottom: none; }
+  .dim-type {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+  .dim-info { flex: 1; }
+  .dim-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .dim-score {
+    color: #667eea;
+    font-size: 13px;
+  }
+  .dim-desc {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  /* 组合类型解析 */
+  .combo-analysis {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #f9f0ff 100%);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .combo-analysis h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .combo-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 8px;
+  }
+  .combo-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* 分享卡片 */
+  .share-card {
+    background: linear-gradient(135deg, #fff7e6 0%, #fff0f6 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .share-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #d46b08;
+  }
+  .share-tip {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 15px;
+  }
+  .share-btns {
+    margin-top: 0;
+  }
+  .share-btns .btn {
+    flex: 1;
+    max-width: 160px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  /* 结果页 */
+  .result-section { display: none; }
+  .result-section h2 {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 22px;
+    color: #333;
+  }
+  .result-meta {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 25px;
+  }
+  
+  .score-card {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .score-item {
+    text-align: center;
+    padding: 16px 8px;
+    background: #f8f9fa;
+    border-radius: 12px;
+  }
+  .score-item .type {
+    font-size: 28px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 4px;
+  }
+  .score-item .type-name {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .score-item .score {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .radar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  canvas { max-width: 100%; }
+
+  .result-desc {
+    background: #f0f4ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .result-desc h3 {
+    color: #4338ca;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  .result-desc h4 {
+    color: #333;
+    margin: 12px 0 6px;
+    font-size: 15px;
+  }
+  .result-desc p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+  .result-desc ul {
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.8;
+    font-size: 14px;
+  }
+
+  .career-code {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .career-code .code {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .career-code .code-desc { font-size: 14px; opacity: 0.9; }
+
+  .career-list h4 {
+    color: #333;
+    margin: 16px 0 8px;
+    padding-left: 10px;
+    border-left: 3px solid #667eea;
+  }
+  .career-list ul {
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.8;
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    .content { padding: 20px; }
+    .header h1 { font-size: 22px; }
+    .question { flex-direction: column; gap: 8px; }
+    .options { width: 100%; }
+    .options label { flex: 1; text-align: center; }
+    .score-card { gap: 6px; }
+    .score-item { padding: 10px 4px; }
+    .score-item .type { font-size: 20px; }
+    .score-item .type-name { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>霍兰德职业兴趣测试</h1>
+    <p>SDS 192题完整版 · 自动计分 · 免费使用</p>
+  </div>
+  
+  <div class="progress-bar" id="progressBar" style="display: none;"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text" id="progressText" style="display: none;">第 0 / 192 题</div>
+
+  <!-- 激活码验证区域 -->
+  <div class="content code-section" id="codeSection">
+    <div class="hero-icon">🎯</div>
+    <h2>发现你的职业天赋</h2>
+    <p class="subtitle">霍兰德职业兴趣测试（SDS 192题完整版）</p>
+    
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <span class="feature-text">6大维度深度解析</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⏱️</span>
+        <span class="feature-text">5分钟完成测试</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📝</span>
+        <span class="feature-text">职业推荐方向</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎯</span>
+        <span class="feature-text">精准雷达图可视化</span>
+      </div>
+    </div>
+
+    <div class="preview-card">
+      <div class="preview-title">📋 你将获得</div>
+      <ul class="preview-list">
+        <li>✅ 霍兰德职业兴趣代码（如RIA、SEC）</li>
+        <li>✅ 六大维度得分雷达图</li>
+        <li>✅ 匹配的职业方向推荐</li>
+        <li>✅ 性格特点深度解析</li>
+      </ul>
+    </div>
+
+    <div class="code-input-wrapper">
+      <input type="text" class="code-input" id="codeInput" placeholder="请输入激活码" maxlength="16">
+      <button class="code-submit-btn" onclick="validateCode()">开始测试</button>
+    </div>
+    <div class="code-error" id="codeError">激活码无效，请检查后重试</div>
+    
+    <div class="stats-bar">
+      <span>🔥 已有 <strong id="testCount">12,847</strong> 人完成测试</span>
+    </div>
+
+    <div class="code-info">
+      没有激活码？<a href="#" onclick="alert('请前往小红书搜索「潜意识Pro」获取激活码');">小红书搜ID「潜意识Pro」</a> · 限时优惠 1元/次
+    </div>
+  </div>
+
+  <div class="content" id="quizSection" style="display: none;">
+    <div class="section-title">第一部分：活动喜好</div>
+    <div class="section-desc">下面列举了若干种活动，请就这些活动判断你的好恶。喜欢的选"是"，不喜欢的选"否"。</div>
+    <div id="section1"></div>
+
+    <div class="section-title">第二部分：能力擅长</div>
+    <div class="section-desc">你擅长做或胜任下列事情吗？</div>
+    <div id="section2"></div>
+
+    <div class="section-title">第三部分：职业喜好</div>
+    <div class="section-desc">你喜欢做下列职业相关的事情吗？</div>
+    <div id="section3"></div>
+
+    <div class="section-title">第四部分：能力自评</div>
+    <div class="section-desc">请对自己以下各方面的能力做出评价。</div>
+    <div id="section4"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="resetQuiz()">重新作答</button>
+      <button class="btn btn-primary" id="submitBtn" onclick="submitQuiz()" disabled>查看结果</button>
+    </div>
+  </div>
+
+  <div class="content result-section" id="resultSection">
+    <h2>🎉 你的专属职业兴趣报告</h2>
+    
+    <div class="result-meta">
+      <span id="resultDate"></span> · 霍兰德SDS 192题专业版
+    </div>
+    
+    <div class="score-card" id="scoreCard"></div>
+    
+    <div class="radar-container">
+      <canvas id="radarChart" width="400" height="400"></canvas>
+    </div>
+
+    <div class="career-code" id="careerCode"></div>
+    
+    <div class="result-desc" id="resultDesc"></div>
+
+    <!-- 6大维度深度解析 -->
+    <div class="dimension-analysis" id="dimensionAnalysis"></div>
+
+    <!-- 组合类型个性化解析 -->
+    <div class="combo-analysis" id="comboAnalysis"></div>
+
+    <div class="career-list" id="careerList"></div>
+
+    <div class="share-card">
+      <div class="share-title">💡 小提示</div>
+      <p class="share-tip">截图保存你的专属报告，分享给朋友一起测测看！</p>
+      <div class="btn-group share-btns">
+        <button class="btn btn-outline" onclick="copyResultLink()">🔗 复制测试链接</button>
+        <button class="btn btn-primary" onclick="resetQuiz()">🔄 重新测试</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== 激活码验证逻辑 ==========
+const CODE_SECRET = "holland_pro_2026"; // 密钥，请勿泄露
+const USED_CODES_KEY = "holland_used_codes";
+
+// 简单哈希生成校验码
+function generateCheckCode(num, secret) {
+  let str = String(num) + secret;
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash = hash & hash;
+  }
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; // 去掉I、O避免混淆
+  let result = '';
+  for (let i = 0; i < 3; i++) {
+    result += chars[Math.abs(hash >> (i * 5)) % chars.length];
+  }
+  return result;
+}
+
+// 验证激活码格式和校验
+function validateCodeFormat(code) {
+  // 支持 HLD-0001-ABC 或 HLD0001ABC 格式
+  code = code.toUpperCase().replace(/-/g, '');
+  if (code.length !== 10) return false;
+  if (!code.startsWith('HLD')) return false;
+  
+  const numStr = code.substring(3, 7);
+  const checkCode = code.substring(7, 10);
+  
+  if (!/^\d{4}$/.test(numStr)) return false;
+  
+  const num = parseInt(numStr, 10);
+  const expectedCheck = generateCheckCode(num, CODE_SECRET);
+  
+  return checkCode === expectedCheck;
+}
+
+// 检查激活码是否已使用（本地记录）
+function isCodeUsed(code) {
+  const used = JSON.parse(localStorage.getItem(USED_CODES_KEY) || '[]');
+  return used.includes(code.toUpperCase().replace(/-/g, ''));
+}
+
+// 标记激活码为已使用
+function markCodeUsed(code) {
+  const used = JSON.parse(localStorage.getItem(USED_CODES_KEY) || '[]');
+  const cleanCode = code.toUpperCase().replace(/-/g, '');
+  if (!used.includes(cleanCode)) {
+    used.push(cleanCode);
+    localStorage.setItem(USED_CODES_KEY, JSON.stringify(used));
+  }
+}
+
+// 验证并开始测试
+function validateCode() {
+  const input = document.getElementById('codeInput');
+  const errorDiv = document.getElementById('codeError');
+  const code = input.value.trim();
+  
+  if (!code) {
+    errorDiv.textContent = '请输入激活码';
+    errorDiv.style.display = 'block';
+    return;
+  }
+  
+  if (!validateCodeFormat(code)) {
+    errorDiv.textContent = '激活码格式不正确，请检查';
+    errorDiv.style.display = 'block';
+    return;
+  }
+  
+  if (isCodeUsed(code)) {
+    errorDiv.textContent = '该激活码已使用，每人仅限一次哦';
+    errorDiv.style.display = 'block';
+    return;
+  }
+  
+  // 验证通过
+  markCodeUsed(code);
+  document.getElementById('codeSection').style.display = 'none';
+  document.getElementById('quizSection').style.display = 'block';
+  document.getElementById('progressBar').style.display = 'block';
+  document.getElementById('progressText').style.display = 'block';
+  errorDiv.style.display = 'none';
+  
+  // 重新渲染题目（因为之前隐藏了）
+  renderQuestions();
+  updateProgress();
+}
+
+// 支持URL参数自动带入激活码：?code=HLD-0001-ABC
+function checkUrlCode() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  if (code) {
+    document.getElementById('codeInput').value = code;
+    // 自动验证
+    setTimeout(() => validateCode(), 500);
+  }
+}
+
+// ========== 题目数据 ==========
+const questions = [
+  // 第一部分：活动 (1-60)
+  // R型活动 1-10
+  { id: 1, text: "装配修理电器或玩具", type: "R", section: 1, options: ["是", "否"] },
+  { id: 2, text: "修理自行车", type: "R", section: 1, options: ["是", "否"] },
+  { id: 3, text: "用木头做东西", type: "R", section: 1, options: ["是", "否"] },
+  { id: 4, text: "开汽车或摩托车", type: "R", section: 1, options: ["是", "否"] },
+  { id: 5, text: "用机器做东西", type: "R", section: 1, options: ["是", "否"] },
+  { id: 6, text: "参加木工技术学习班", type: "R", section: 1, options: ["是", "否"] },
+  { id: 7, text: "参加制图描图学习班", type: "R", section: 1, options: ["是", "否"] },
+  { id: 8, text: "驾驶卡车或拖拉机", type: "R", section: 1, options: ["是", "否"] },
+  { id: 9, text: "参加机械和电气学习班", type: "R", section: 1, options: ["是", "否"] },
+  { id: 10, text: "装配修理机器", type: "R", section: 1, options: ["是", "否"] },
+  
+  // A型活动 11-20
+  { id: 11, text: "素描/制图或绘画", type: "A", section: 1, options: ["是", "否"] },
+  { id: 12, text: "参加话剧/戏剧", type: "A", section: 1, options: ["是", "否"] },
+  { id: 13, text: "设计家具/布置室内", type: "A", section: 1, options: ["是", "否"] },
+  { id: 14, text: "练习乐器/参加乐队", type: "A", section: 1, options: ["是", "否"] },
+  { id: 15, text: "欣赏音乐或戏剧", type: "A", section: 1, options: ["是", "否"] },
+  { id: 16, text: "看小说/读剧本", type: "A", section: 1, options: ["是", "否"] },
+  { id: 17, text: "从事摄影创作", type: "A", section: 1, options: ["是", "否"] },
+  { id: 18, text: "写诗或吟诗", type: "A", section: 1, options: ["是", "否"] },
+  { id: 19, text: "进艺术（美术/音乐）培训", type: "A", section: 1, options: ["是", "否"] },
+  { id: 20, text: "练习书法", type: "A", section: 1, options: ["是", "否"] },
+  
+  // I型活动 21-30
+  { id: 21, text: "读科技图书和杂志", type: "I", section: 1, options: ["是", "否"] },
+  { id: 22, text: "在实验室工作", type: "I", section: 1, options: ["是", "否"] },
+  { id: 23, text: "改良水果品种，培育新的水果", type: "I", section: 1, options: ["是", "否"] },
+  { id: 24, text: "调查了解土和金属等物质的成分", type: "I", section: 1, options: ["是", "否"] },
+  { id: 25, text: "研究自己选择的特殊问题", type: "I", section: 1, options: ["是", "否"] },
+  { id: 26, text: "解算术或玩数学游戏", type: "I", section: 1, options: ["是", "否"] },
+  { id: 27, text: "喜欢物理课", type: "I", section: 1, options: ["是", "否"] },
+  { id: 28, text: "喜欢化学课", type: "I", section: 1, options: ["是", "否"] },
+  { id: 29, text: "喜欢几何课", type: "I", section: 1, options: ["是", "否"] },
+  { id: 30, text: "喜欢生物课", type: "I", section: 1, options: ["是", "否"] },
+  
+  // S型活动 31-40
+  { id: 31, text: "学校或单位组织的正式活动", type: "S", section: 1, options: ["是", "否"] },
+  { id: 32, text: "参加某个社会团体或俱乐部活动", type: "S", section: 1, options: ["是", "否"] },
+  { id: 33, text: "帮助别人解决困难", type: "S", section: 1, options: ["是", "否"] },
+  { id: 34, text: "照顾儿童", type: "S", section: 1, options: ["是", "否"] },
+  { id: 35, text: "出席晚会、联欢会、茶话会", type: "S", section: 1, options: ["是", "否"] },
+  { id: 36, text: "和大家一起出去郊游", type: "S", section: 1, options: ["是", "否"] },
+  { id: 37, text: "想获得关于心理方面的知识", type: "S", section: 1, options: ["是", "否"] },
+  { id: 38, text: "参加讲座会或辩论会", type: "S", section: 1, options: ["是", "否"] },
+  { id: 39, text: "观看或参加体育比赛和运动会", type: "S", section: 1, options: ["是", "否"] },
+  { id: 40, text: "结交新朋友", type: "S", section: 1, options: ["是", "否"] },
+  
+  // E型活动 41-50
+  { id: 41, text: "说服鼓动他人", type: "E", section: 1, options: ["是", "否"] },
+  { id: 42, text: "卖东西", type: "E", section: 1, options: ["是", "否"] },
+  { id: 43, text: "谈论政治", type: "E", section: 1, options: ["是", "否"] },
+  { id: 44, text: "制定计划、参加会议", type: "E", section: 1, options: ["是", "否"] },
+  { id: 45, text: "以自己的意志影响别人的行为", type: "E", section: 1, options: ["是", "否"] },
+  { id: 46, text: "在社会团体中担任职务", type: "E", section: 1, options: ["是", "否"] },
+  { id: 47, text: "检查与评价别人的工作", type: "E", section: 1, options: ["是", "否"] },
+  { id: 48, text: "结交名流", type: "E", section: 1, options: ["是", "否"] },
+  { id: 49, text: "指导有某种目标的团体", type: "E", section: 1, options: ["是", "否"] },
+  { id: 50, text: "参与政治活动", type: "E", section: 1, options: ["是", "否"] },
+  
+  // C型活动 51-60
+  { id: 51, text: "整理好桌面和房间", type: "C", section: 1, options: ["是", "否"] },
+  { id: 52, text: "抄写文件和信件", type: "C", section: 1, options: ["是", "否"] },
+  { id: 53, text: "为领导写报告或公务信函", type: "C", section: 1, options: ["是", "否"] },
+  { id: 54, text: "检查个人收支情况", type: "C", section: 1, options: ["是", "否"] },
+  { id: 55, text: "打字培训班", type: "C", section: 1, options: ["是", "否"] },
+  { id: 56, text: "参加算盘、文秘等实务培训", type: "C", section: 1, options: ["是", "否"] },
+  { id: 57, text: "参加商业会计培训班", type: "C", section: 1, options: ["是", "否"] },
+  { id: 58, text: "参加情报处理培训班", type: "C", section: 1, options: ["是", "否"] },
+  { id: 59, text: "整理信件、报告、记录等", type: "C", section: 1, options: ["是", "否"] },
+  { id: 60, text: "写商业贸易信", type: "C", section: 1, options: ["是", "否"] },
+  
+  // 第二部分：能力 (61-120)
+  // R型能力 61-70
+  { id: 61, text: "能使用电锯、电钻和锉刀等木工工具", type: "R", section: 2, options: ["是", "否"] },
+  { id: 62, text: "知道万用表的使用方法", type: "R", section: 2, options: ["是", "否"] },
+  { id: 63, text: "能够修理自行车或其他机械", type: "R", section: 2, options: ["是", "否"] },
+  { id: 64, text: "能够使用电钻床、磨床或缝纫机", type: "R", section: 2, options: ["是", "否"] },
+  { id: 65, text: "能给家具和木制品刷漆", type: "R", section: 2, options: ["是", "否"] },
+  { id: 66, text: "能看建筑设计图", type: "R", section: 2, options: ["是", "否"] },
+  { id: 67, text: "能够修理简单的电气用品", type: "R", section: 2, options: ["是", "否"] },
+  { id: 68, text: "能修理家具", type: "R", section: 2, options: ["是", "否"] },
+  { id: 69, text: "能修理收录机", type: "R", section: 2, options: ["是", "否"] },
+  { id: 70, text: "能简单地修理水管", type: "R", section: 2, options: ["是", "否"] },
+  
+  // A型能力 71-80
+  { id: 71, text: "能演奏乐器", type: "A", section: 2, options: ["是", "否"] },
+  { id: 72, text: "能参加二部或四部合唱", type: "A", section: 2, options: ["是", "否"] },
+  { id: 73, text: "独唱或独奏", type: "A", section: 2, options: ["是", "否"] },
+  { id: 74, text: "扮演剧中角色", type: "A", section: 2, options: ["是", "否"] },
+  { id: 75, text: "能创作简单的乐曲", type: "A", section: 2, options: ["是", "否"] },
+  { id: 76, text: "会跳舞", type: "A", section: 2, options: ["是", "否"] },
+  { id: 77, text: "能绘画、素描或书法", type: "A", section: 2, options: ["是", "否"] },
+  { id: 78, text: "能雕刻、剪纸或泥塑", type: "A", section: 2, options: ["是", "否"] },
+  { id: 79, text: "能设计板报、服装或家具", type: "A", section: 2, options: ["是", "否"] },
+  { id: 80, text: "写得一手好文章", type: "A", section: 2, options: ["是", "否"] },
+  
+  // I型能力 81-90
+  { id: 81, text: "懂得真空管或晶体管的作用", type: "I", section: 2, options: ["是", "否"] },
+  { id: 82, text: "能够列举三种蛋白质多的食品", type: "I", section: 2, options: ["是", "否"] },
+  { id: 83, text: "理解铀的裂变", type: "I", section: 2, options: ["是", "否"] },
+  { id: 84, text: "能用计算尺、计算器、对数表", type: "I", section: 2, options: ["是", "否"] },
+  { id: 85, text: "会使用显微镜", type: "I", section: 2, options: ["是", "否"] },
+  { id: 86, text: "能找到三个星座", type: "I", section: 2, options: ["是", "否"] },
+  { id: 87, text: "能独立进行调查研究", type: "I", section: 2, options: ["是", "否"] },
+  { id: 88, text: "能解释简单的化学", type: "I", section: 2, options: ["是", "否"] },
+  { id: 89, text: "理解人造卫星为什么不落地", type: "I", section: 2, options: ["是", "否"] },
+  { id: 90, text: "经常参加学术的会议", type: "I", section: 2, options: ["是", "否"] },
+  
+  // S型能力 91-100
+  { id: 91, text: "有向各种人说明解释的能力", type: "S", section: 2, options: ["是", "否"] },
+  { id: 92, text: "常参加社会福利活动", type: "S", section: 2, options: ["是", "否"] },
+  { id: 93, text: "能和大家一起友好相处地工作", type: "S", section: 2, options: ["是", "否"] },
+  { id: 94, text: "善于与年长者相处", type: "S", section: 2, options: ["是", "否"] },
+  { id: 95, text: "会邀请人、招待人", type: "S", section: 2, options: ["是", "否"] },
+  { id: 96, text: "能简单易懂地教育儿童", type: "S", section: 2, options: ["是", "否"] },
+  { id: 97, text: "能安排会议等活动顺序", type: "S", section: 2, options: ["是", "否"] },
+  { id: 98, text: "善于体察人心和帮助他人", type: "S", section: 2, options: ["是", "否"] },
+  { id: 99, text: "帮助护理病人和伤员", type: "S", section: 2, options: ["是", "否"] },
+  { id: 100, text: "安排社团组织的各种事务", type: "S", section: 2, options: ["是", "否"] },
+  
+  // E型能力 101-110
+  { id: 101, text: "担任过学生干部并且干得不错", type: "E", section: 2, options: ["是", "否"] },
+  { id: 102, text: "工作上能指导和监督他人", type: "E", section: 2, options: ["是", "否"] },
+  { id: 103, text: "做事充满活力和热情", type: "E", section: 2, options: ["是", "否"] },
+  { id: 104, text: "有效利用自身的做法调动他人", type: "E", section: 2, options: ["是", "否"] },
+  { id: 105, text: "销售能力强", type: "E", section: 2, options: ["是", "否"] },
+  { id: 106, text: "曾作为俱乐部或社团的负责人", type: "E", section: 2, options: ["是", "否"] },
+  { id: 107, text: "向领导提出建议或反映意见", type: "E", section: 2, options: ["是", "否"] },
+  { id: 108, text: "有开创事业的能力", type: "E", section: 2, options: ["是", "否"] },
+  { id: 109, text: "知道怎样做能成为一个优秀的领导者", type: "E", section: 2, options: ["是", "否"] },
+  { id: 110, text: "健谈善辩", type: "E", section: 2, options: ["是", "否"] },
+  
+  // C型能力 111-120
+  { id: 111, text: "会熟练的打印中文", type: "C", section: 2, options: ["是", "否"] },
+  { id: 112, text: "会用外文打字机或复印机", type: "C", section: 2, options: ["是", "否"] },
+  { id: 113, text: "能快速记笔记和抄写文章", type: "C", section: 2, options: ["是", "否"] },
+  { id: 114, text: "善于整理保管文件和资料", type: "C", section: 2, options: ["是", "否"] },
+  { id: 115, text: "善于从事事务性的工作", type: "C", section: 2, options: ["是", "否"] },
+  { id: 116, text: "会用算盘", type: "C", section: 2, options: ["是", "否"] },
+  { id: 117, text: "能在短时间内分类和处理大量文件", type: "C", section: 2, options: ["是", "否"] },
+  { id: 118, text: "能使用计算机", type: "C", section: 2, options: ["是", "否"] },
+  { id: 119, text: "能搜集数据", type: "C", section: 2, options: ["是", "否"] },
+  { id: 120, text: "善于为自己或集体做财务预算表", type: "C", section: 2, options: ["是", "否"] },
+  
+  // 第三部分：职业 (121-180)
+  // R型职业 121-130
+  { id: 121, text: "飞机机械师", type: "R", section: 3, options: ["是", "否"] },
+  { id: 122, text: "野生动物专家", type: "R", section: 3, options: ["是", "否"] },
+  { id: 123, text: "汽车维修工", type: "R", section: 3, options: ["是", "否"] },
+  { id: 124, text: "木匠", type: "R", section: 3, options: ["是", "否"] },
+  { id: 125, text: "测量工程师", type: "R", section: 3, options: ["是", "否"] },
+  { id: 126, text: "无线电报务员", type: "R", section: 3, options: ["是", "否"] },
+  { id: 127, text: "园艺师", type: "R", section: 3, options: ["是", "否"] },
+  { id: 128, text: "长途公共汽车司机", type: "R", section: 3, options: ["是", "否"] },
+  { id: 129, text: "测绘、水文技术人员", type: "R", section: 3, options: ["是", "否"] },
+  { id: 130, text: "电工", type: "R", section: 3, options: ["是", "否"] },
+  
+  // S型职业 131-140
+  { id: 131, text: "街道、工会或妇联干部", type: "S", section: 3, options: ["是", "否"] },
+  { id: 132, text: "小学、中学教师", type: "S", section: 3, options: ["是", "否"] },
+  { id: 133, text: "精神病医生", type: "S", section: 3, options: ["是", "否"] },
+  { id: 134, text: "婚姻介绍所工作人员", type: "S", section: 3, options: ["是", "否"] },
+  { id: 135, text: "体育教练", type: "S", section: 3, options: ["是", "否"] },
+  { id: 136, text: "福利机构负责人", type: "S", section: 3, options: ["是", "否"] },
+  { id: 137, text: "心理咨询员", type: "S", section: 3, options: ["是", "否"] },
+  { id: 138, text: "共青团干部", type: "S", section: 3, options: ["是", "否"] },
+  { id: 139, text: "导游", type: "S", section: 3, options: ["是", "否"] },
+  { id: 140, text: "国家机关工作人员", type: "S", section: 3, options: ["是", "否"] },
+  
+  // I型职业 141-150
+  { id: 141, text: "气象学或天文学学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 142, text: "生物学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 143, text: "医学实验室的技术人员", type: "I", section: 3, options: ["是", "否"] },
+  { id: 144, text: "人类学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 145, text: "动物学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 146, text: "化学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 147, text: "数学学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 148, text: "科学杂志的编辑或作家", type: "I", section: 3, options: ["是", "否"] },
+  { id: 149, text: "地质学者", type: "I", section: 3, options: ["是", "否"] },
+  { id: 150, text: "物理学者", type: "I", section: 3, options: ["是", "否"] },
+  
+  // E型职业 151-160
+  { id: 151, text: "厂长", type: "E", section: 3, options: ["是", "否"] },
+  { id: 152, text: "电视片编制人", type: "E", section: 3, options: ["是", "否"] },
+  { id: 153, text: "公司经理", type: "E", section: 3, options: ["是", "否"] },
+  { id: 154, text: "销售员", type: "E", section: 3, options: ["是", "否"] },
+  { id: 155, text: "不动产推销员", type: "E", section: 3, options: ["是", "否"] },
+  { id: 156, text: "广告部长", type: "E", section: 3, options: ["是", "否"] },
+  { id: 157, text: "体育活动主办者", type: "E", section: 3, options: ["是", "否"] },
+  { id: 158, text: "销售部长", type: "E", section: 3, options: ["是", "否"] },
+  { id: 159, text: "个体工商业者", type: "E", section: 3, options: ["是", "否"] },
+  { id: 160, text: "企业管理咨询人员", type: "E", section: 3, options: ["是", "否"] },
+  
+  // A型职业 161-170
+  { id: 161, text: "乐队指挥", type: "A", section: 3, options: ["是", "否"] },
+  { id: 162, text: "演奏家", type: "A", section: 3, options: ["是", "否"] },
+  { id: 163, text: "作家", type: "A", section: 3, options: ["是", "否"] },
+  { id: 164, text: "摄影家", type: "A", section: 3, options: ["是", "否"] },
+  { id: 165, text: "记者", type: "A", section: 3, options: ["是", "否"] },
+  { id: 166, text: "画家、书法家", type: "A", section: 3, options: ["是", "否"] },
+  { id: 167, text: "歌唱家", type: "A", section: 3, options: ["是", "否"] },
+  { id: 168, text: "作曲家", type: "A", section: 3, options: ["是", "否"] },
+  { id: 169, text: "电影电视演员", type: "A", section: 3, options: ["是", "否"] },
+  { id: 170, text: "雕刻家", type: "A", section: 3, options: ["是", "否"] },
+  
+  // C型职业 171-180
+  { id: 171, text: "会计师", type: "C", section: 3, options: ["是", "否"] },
+  { id: 172, text: "银行出纳员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 173, text: "税收管理员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 174, text: "计算机操作员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 175, text: "簿记人员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 176, text: "成本核算员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 177, text: "文书档案管理员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 178, text: "打字员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 179, text: "法庭书记员", type: "C", section: 3, options: ["是", "否"] },
+  { id: 180, text: "人口普查登记员", type: "C", section: 3, options: ["是", "否"] },
+  
+  // 第四部分：自评 (181-192)
+  { id: 181, text: "机械操作能力", type: "R", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 182, text: "科学研究能力", type: "I", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 183, text: "艺术创作能力", type: "A", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 184, text: "解释表达能力", type: "S", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 185, text: "商业洽谈能力", type: "E", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 186, text: "事务执行能力", type: "C", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 187, text: "体育技能", type: "R", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 188, text: "数学技能", type: "I", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 189, text: "音乐技能", type: "A", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 190, text: "交际技能", type: "S", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 191, text: "领导技能", type: "E", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+  { id: 192, text: "办公技能", type: "C", section: 4, options: ["比大多数人差", "跟大多数人差不多", "比大多数人强", "不太重要"] },
+];
+
+// 类型名称映射
+const typeNames = {
+  "R": "现实型",
+  "I": "研究型",
+  "A": "艺术型",
+  "S": "社会型",
+  "E": "企业型",
+  "C": "常规型"
+};
+
+// 类型颜色
+const typeColors = {
+  "R": "#f59e0b",
+  "I": "#3b82f6",
+  "A": "#ec4899",
+  "S": "#10b981",
+  "E": "#ef4444",
+  "C": "#8b5cf6"
+};
+
+// 类型详细描述
+const typeDescriptions = {
+  "R": {
+    name: "现实型",
+    color: "#52c41a",
+    common: "愿意使用工具从事操作性工作，动手能力强，做事手脚灵活，动作协调。偏好于具体任务，不善言辞，做事保守，较为谦虚。缺乏社交能力，通常喜欢独立做事。",
+    personality: "感觉迟钝、不讲究、谦逊的。踏实稳重、诚实可靠。",
+    careers: "技术性职业（计算机硬件人员、摄影师、制图员、机械装配工），技能性职业（木匠、厨师、技工、修理工、农民、一般劳动）。",
+    brief: "动手达人，用手艺说话"
+  },
+  "I": {
+    name: "研究型",
+    color: "#1890ff",
+    common: "思想家而非实干家，抽象思维能力强，求知欲强，肯动脑，善思考，不愿动手。喜欢独立的和富有创造性的工作。知识渊博，有学识才能，不善于领导他人。考虑问题理性，做事喜欢精确，喜欢逻辑分析和推理，不断探讨未知的领域。",
+    personality: "坚持性强，有韧性，喜欢钻研。为人好奇，独立性强。",
+    careers: "科学研究人员、教师、工程师、电脑编程人员、医生、系统分析员。",
+    brief: "思考者，用脑子解决问题"
+  },
+  "A": {
+    name: "艺术型",
+    color: "#eb2f96",
+    common: "有创造力，乐于创造新颖、与众不同的成果，渴望表现自己的个性，实现自身的价值。做事理想化，追求完美，不重实际。具有一定的艺术才能和个性。善于表达、怀旧、心态较为复杂。",
+    personality: "有创造性，非传统的，敏感，容易情绪化，较冲动，不服从指挥。",
+    careers: "艺术方面（演员、导演、艺术设计师、雕刻家、建筑师、摄影家、广告制作人）、音乐方面（歌唱家、作曲家、乐队指挥）、文学方面（小说家、诗人、剧作家）。",
+    brief: "创意灵魂，不走寻常路"
+  },
+  "S": {
+    name: "社会型",
+    color: "#fa8c16",
+    common: "喜欢与人交往、不断结交新的朋友、善言谈、愿意教导别人。关心社会问题、渴望发挥自己的社会作用。寻求广泛的人际关系，比较看重社会义务和社会道德。",
+    personality: "为人友好、热情、善解人意、乐于助人。",
+    careers: "教育工作者（教师、教育行政人员）、社会工作者（咨询人员、公关人员）。",
+    brief: "人际高手，温暖他人"
+  },
+  "E": {
+    name: "企业型",
+    color: "#f5222d",
+    common: "追求权力、权威和物质财富，具有领导才能。喜欢竞争、敢冒风险、有野心/抱负。为人务实，习惯以利益得失，权利、地位、金钱等来衡量做事的价值，做事有较强的目的性。",
+    personality: "善辩、精力旺盛、独断、乐观、自信、好交际、机敏、有支配愿望。",
+    careers: "项目经理、销售人员，营销管理人员、政府官员、企业领导、法官、律师。",
+    brief: "天生领导者，目标导向"
+  },
+  "C": {
+    name: "常规型",
+    color: "#722ed1",
+    common: "尊重权威和规章制度，喜欢按计划办事，细心、有条理，习惯接受他人的指挥和领导，自己不谋求领导职务。喜欢关注实际和细节情况，通常较为谨慎和保守，缺乏创造性，不喜欢冒险和竞争，富有自我牺牲精神。",
+    personality: "有责任心、依赖性强、高效率、稳重踏实、细致、有耐心。",
+    careers: "秘书、办公室人员、记事员、会计、行政助理、图书馆管理员、出纳员、打字员、投资分析员。",
+    brief: "靠谱担当，细节控"
+  }
+};
+
+// 组合类型个性化解析（常见组合）
+const comboDescriptions = {
+  "SEC": {
+    title: "「职场达人型」— 社交+管理+执行的完美结合",
+    desc: "你是天生的职场多面手：S型让你擅长人际沟通，E型给你领导力和进取心，C型保证了细致和条理性。你既能冲锋陷阵谈业务，也能稳坐后方管团队，是老板眼中的得力干将，同事眼中的靠谱伙伴。适合往综合管理、运营、人力资源方向发展，你的综合能力会让你在职场中游刃有余。"
+  },
+  "SEI": {
+    title: "「智囊型领导者」— 用思考和温度带队",
+    desc: "你是兼具感性和理性的领导者：S型让你懂得共情和激励，E型给你目标感和推动力，I型则赋予你深度思考和分析能力。你不喜欢简单粗暴的管理方式，更愿意用智慧和人格魅力影响他人。适合从事教育管理、咨询、战略规划等需要同时动脑又带人。"
+  },
+  "SCE": {
+    title: "「贴心管家型」— 细致周到的幕后功臣",
+    desc: "你是那种让人特别安心的存在：S型的温暖贴心+C型的细致有条理+E型的执行力，让你总能把事情安排得井井有条，还能照顾到每个人的感受。你适合做行政主管、办公室主任、项目经理等角色，团队有你在，大家都很放心。"
+  },
+  "ESI": {
+    title: "「创业型选手」— 有冲劲、有温度、有脑子",
+    desc: "你身上有创业者的潜质：E型的野心和冒险精神+S型的人际敏感度+I型的学习钻研能力。你不仅能打江山，还懂得怎么凝聚人，更知道用脑子而不是蛮力做事。如果有合适的机会，不妨考虑自己做点事，你的综合能力很适合独当一面。"
+  },
+  "EIC": {
+    title: "「技术管理者」— 既懂技术又懂管理",
+    desc: "你是典型的技术派管理者：E型给你领导力和结果导向，I型让你有钻研技术的底子，C型保证了流程和规范意识。你不是那种只会发号施令的领导，你懂业务、懂技术，下属服你，老板信任你。适合往技术总监、研发经理方向发展。"
+  },
+  "ECS": {
+    title: "「铁腕经营者」— 结果导向，效率优先",
+    desc: "你是典型的目标驱动型人才：E型的野心+ C型的条理+ S型的圆滑，让你既能拿到结果，又不至于把人逼走。你做事高效，目标明确，懂得用规则和制度管人，是天生的运营管理人才。"
+  },
+  "ISE": {
+    title: "「专家型顾问」— 用专业帮人解决问题",
+    desc: "你是那种靠专业吃饭的人：I型的钻研精神让你能成为领域专家，S型让你懂得如何与人沟通、传递价值，E型给你商业化的思维。你适合做咨询顾问、培训师、专家型销售，靠专业度赢得尊重和收入。"
+  },
+  "SIC": {
+    title: "「暖心学者型」— 用知识温暖他人",
+    desc: "你既有学者的严谨，又有教育者的温度：I型让你喜欢钻研知识，S型让你愿意分享和帮助他人，C型保证了你的细致和条理性。你适合做老师、研究员、图书馆管理员、档案管理等工作，在安静中创造价值。"
+  },
+  "ASC": {
+    title: "「文艺管理者」— 用创意和温度带团队",
+    desc: "你是很有个人魅力的管理者：A型的创意和审美+ S型的共情力+ C型的条理性，让你能带出一支有创造力又有凝聚力的团队。你不喜欢刻板的管理方式，更愿意用价值观和创意感来凝聚人。适合做创意总监、艺术团队负责人、文化项目管理者。"
+  },
+  "AES": {
+    title: "「创意操盘手」— 把想法变成生意",
+    desc: "你不是空有创意的艺术家，而是能把想法变现的实干家：A型的创意天赋+ E型的商业头脑+ S型的人际能力，让你既能产出好内容，又能把它做成生意。适合创业、做自媒体、品牌营销、活动策划等需要创意+落地能力的工作。"
+  },
+  "RIE": {
+    title: "「技术创业者」— 用手艺打天下",
+    desc: "你是技术派里最有商业头脑的：R型的动手能力+ I型的钻研精神+ E型的进取心，让你既能沉下心搞技术，又有往上走的野心。你不甘于只做一个执行者，未来可以往技术管理、技术创业方向发展。"
+  },
+  "RIC": {
+    title: "「匠人型专家」— 精益求精的技术派",
+    desc: "你是那种能在一个领域深耕多年的匠人：R型的动手能力+ I型的钻研精神+ C型的细致耐心，让你特别适合需要沉淀的技术岗位。你不喜欢搞复杂的人际关系，更愿意在专业上精益求精。"
+  },
+  "CRI": {
+    title: "「质控型人才」— 严谨细致的把关人",
+    desc: "你是天生的质量守护者：C型的细致+ R型的实操能力+ I型的分析思维，让你特别适合做质量检测、工程监理、审计、数据分析等需要严谨和细致的工作。你做事让人放心，是团队里的定海神针。"
+  },
+  "CSI": {
+    title: "「行政精英」— 把杂乱变有序的魔法师",
+    desc: "你是办公室里最不可或缺的人：C型的条理+ S型的沟通能力+ I型的学习能力，让你能把复杂的行政事务处理得井井有条，还能让每个人都满意。你适合做行政主管、人事专员、办公室主任等岗位。"
+  },
+  "CSE": {
+    title: "「财务管理者」— 既懂数字又懂人",
+    desc: "你是很全面的管理型人才：C型的细致和数字敏感度+ S型的沟通能力+ E型的管理野心，让你既能做好专业工作，又能往管理岗发展。适合财务、会计、人力资源等专业+管理的复合型岗位。"
+  }
+};
+
+// 职业代号对应表（前20个常见组合）
+const careerCodes = {
+  "RIA": "牙科技术员、陶工、建筑设计员、模型工、细木工、制作链条人员",
+  "RIS": "厨师、林务员、跳水员、潜水员、染色员、电器修理、眼镜制作、电工、纺织机器装配工、服务员、装玻璃工人、发电厂工人、焊接工",
+  "RIE": "建筑和桥梁工程、环境工程、航空工程、公路工程、电力工程、信号工程、电话工程、一般机械工程、自动工程、矿业工程、海洋工程、交通工程技术人员、制图员、家政经济人员、计量员、农民、农场工人、农业机器操作、清洁工、无线电修理、汽车修理、手表修理、管子工、线路装配工、工具仓库管理员",
+  "RIC": "船上工作人员、接待员、杂志保管员、牙医助手、制帽工、磨坊工、石匠、机器制造、机车制造、农业机器装配、汽车装配工、缝纫机装配工、钟表装配和检验、电动器具装配、鞋匠、锁匠、货物检验员、电梯机修工、托儿所所长、钢琴调音员、装配工、印刷工、建筑钢铁工人、卡车司机",
+  "RAI": "手工雕刻、玻璃雕刻、制作模型人员、家具木工、制作皮革品、手工绣花、手工钩针编织、排字工人、印刷工人、图画雕刻、装订工",
+  "RSE": "消防员、交通巡警、警察、门卫、理发师、房间清洁工、屠夫、锻工、开凿工人、管道安装工、出租汽车驾驶员、货物搬运工、送报员、勘探员、娱乐场所的服务员、起卸机操作工、灭害虫者、电梯操作工、厨房助手",
+  "RSI": "纺织工、编织工、农业学校教师、某些职业课程教师(诸如艺术、商业、技术、工艺课程)、雨衣上胶工",
+  "REC": "抄水表员、保姆、实验室动物饲养员、动物管理员",
+  "REI": "轮船船长、航海领航员、大副、试管实验员",
+  "RES": "旅馆服务员、家畜饲养员、渔民、渔网修补工、水手长、收割机操作工、搬运行李工人、公园服务员、救生员、登山导游、火车工程技术员、建筑工人、铺轨工人",
+  "RCI": "测量员、勘测员、仪表操作者、农业工程技术、化学工程技师、民用工程技师、石油工程技师、资料室管理员、探矿工、煅烧工、烧窑工、矿工、保养工、磨床工、取样工、样品检验员、纺纱工、炮手、漂洗工、电焊工、锯木工、刨床工、制帽工、手工缝纫工、油漆工、染色工、按摩工、木匠、农民建筑工人、电影放映员、勘测员助手",
+  "RCS": "公共汽车驾驶员、一等水手、游泳池服务员、裁缝、建筑工人、石匠、烟囱修建工、混凝土工、电话修理工、爆炸手、邮递员、矿工、裱糊工人、纺纱工",
+  "RCE": "打井工、吊车驾驶员、农场工人、邮件分类员、铲车司机、拖拉机司机",
+  "IAS": "普通经济学家、农场经济学家、财政经济学家、国际贸易经济学家、实验心理学家、工程心理学家、心理学家、哲学家、内科医生、数学家",
+  "IAR": "人类学家、天文学家、化学家、物理学家、医学病理学家、动物标本剥制者、化石修复者、艺术品管理员",
+  "ISE": "营养学家、饮食顾问、火灾检查员、邮政服务检查员",
+  "ISC": "侦察员、电视播音室修理员、电视修理服务员、验尸室人员、编目录者、医学实验室技师、调查研究者",
+  "ISR": "水生生物学者、昆虫学者、微生物学家、配镜师、矫正视力者、细菌学家、牙科医生、骨科医生",
+  "ISA": "实验心理学家、普通心理学家、发展心理学家、教育心理学家、社会心理学家、临床心理学家、目录学家、皮肤病学家、精神病学家、妇产科医生、眼科医生、五官科医生、医学实验室技术专家、民航医务人员、护士",
+  "IES": "细菌学家、生理学家、化学专家、地质专家、地理物理学专家、纺织技术专家、医院药剂师、工业药剂师、药房营业员",
+  "IEC": "档案保管员、保险统计员",
+  "ICR": "质量检验技术员、地质学技师、工程师、法官、图书馆技术辅导员、计算机操作员、医院听诊员、家禽检查员",
+  "IRA": "地理学家、地质学家、水文学家、矿物学家、古生物学家、石油学家、地震学家、声学物理学家、原子和分子物理学家、电学和磁学物理学家、气象学家、设计审核员、人口统计学家、数学统计学家、外科医生、城市规划家、气象员",
+  "IRS": "流体物理学家、物理海洋学家、等离子体物理学家、农业科学家、动物学家、食品科学家、园艺学家、植物学家、细菌学家、解剖学家、动物病理学家、作物病理学家、药物学家、生物化学家、生物物理学家、细胞生物学家、临床化学家、遗传学家、分子生物学家、质量控制工程师、地理学家、兽医、放射治疗技师",
+  "IRE": "化验员、化学工程师、纺织工程师、食品技师、渔业技术专家、材料和测试工程师、电气工程师、土木工程师、航空工程师、行政官员、冶金专家、原子核工程师、陶瓷工程师、地质工程师、电力工程师、口腔科医生、牙科医生",
+  "IRC": "飞机领航员、飞行员、物理实验室技师、文献检查员、农业技术专家、动植物技术专家、生物技师、油管检查员、工商业规划者、矿藏安全检查员、纺织品检验员、照相机修理者、工程技术员、编计算机程序者、工具设计者、仪器维修工",
+  "CRI": "簿记员、会计、记时员、铸造机操作工、打字员、按键操作工、复印机操作工",
+  "CRS": "仓库保管员、档案管理员、缝纫工、讲述员、收款人",
+  "CRE": "标价员、实验室工作者、广告管理员、自动打字机操作员、电动机装配工、缝纫机操作工",
+  "CIS": "记账员、顾客服务员、报刊发行员、土地测量员、保险公司职员、会计师、估价员、邮政检查员、外贸检查员",
+  "CIE": "打字员、统计员、支票记录员、订货员、校对员、办公室工作人员",
+  "CIR": "校对员、工程职员、海底电报员、检修计划员、发报员",
+  "CSE": "接待员、通讯员、电话接线员、卖票员、旅馆服务员、私人职员、商学教师、旅游办事员",
+  "CSR": "运货代理商、铁路职员、交通检查员、办公室通信员、簿记员、出纳员、银行财务职员",
+  "CSA": "秘书、图书管理员、办公室办事员",
+  "CER": "邮递员、数据处理员、航空邮件检查员",
+  "CEI": "推销员、经济分析家",
+  "CES": "银行会计、记账员、法人秘书、速记员、法院报告人",
+  "ECI": "银行行长、审记员、信用管理员、地产管理员、商业管理员",
+  "ECS": "信用办事员、保险人员、各类进货员、海关服务经理、售货员、购买员、会计",
+  "ERI": "建筑物管理员、工业工程师、农场管理员、护士长、农业经营管理人员",
+  "ERS": "仓库管理员、房屋管理员、货栈监督管理员",
+  "ERC": "邮政局长、渔船船长、机械操作领班、木工领班、瓦工领班、驾驶员领班",
+  "EIR": "科学、技术和有关周期出版物的管理员",
+  "EIC": "专利代理人、鉴定人、运输服务检查员、安全检查员、废品收购人员",
+  "EIS": "警官、侦察员、交通检验员、安全咨询员、合同管理者、商人",
+  "EAS": "法官、律师、公证人",
+  "ESC": "理发师、裁判员、政府行政管理员、财政管理员、工程管理员、职业病防治、售货员、商业经理、办公室主任、人事负责人、调度员",
+  "ESR": "家具售货员、书店售货员、公共汽车的驾驶员、日用品售货员、护士长、自然科学和工程的行政领导",
+  "ESI": "博物馆管理员、图书馆管理员、古迹管理员、饮食业经理、地区安全服务管理员、技术服务咨询者、超级市场管理员、零售商品店店员、批发商、出租汽车服务站调度",
+  "ESA": "博物馆馆长、报刊管理员、音乐器材售货员、广告商售画营业员、导游、(轮船或班机上的)事务长、飞机上的服务员、船员、法官、律师",
+  "ASE": "戏剧导演、舞蹈教师、广告撰稿人、报刊专栏作者、记者、演员、英语翻译",
+  "ASI": "音乐教师、乐器教师、美术教师、管弦乐指挥、合唱队指挥、歌星、演奏家、哲学家、作家、广告经理、时装模特",
+  "AER": "新闻摄影师、电视摄像师、艺术指导、录音指导、丑角演员、魔术师、木偶戏演员、骑士、跳水员",
+  "AEI": "音乐指挥、舞台指导、电影导演",
+  "AES": "流行歌手、舞蹈演员、电影导演、广播节目主持人、舞蹈教师、口技表演者、喜剧演员、模特",
+  "AIS": "画家、剧作家、编辑、评论家、时装艺术大师、新闻摄影师、男演员、文学作者",
+  "AIE": "花匠、皮衣设计师、工业产品设计师、剪影艺术家、复制雕刻品大师",
+  "AIR": "建筑师、画家、摄影师、绘图员、环境美化工、雕刻家、包装设计师、陶器设计师、绣花工、漫画工",
+  "SEC": "社会活动家、退伍军人服务官员、工商会事务代表、教育咨询者、宿舍管理员、旅馆经理、饮食服务管理员",
+  "SER": "体育教练、游泳指导",
+  "SEI": "大学校长、学院院长、医院行政管理员、历史学家、家政经济学家、职业学校教师、资料员",
+  "SEA": "娱乐活动管理员、国外服务办事员、社会服务助理、一般咨询者、宗教教育工作者",
+  "SCE": "部长助理、福利机构职员、生产协调人、环境卫生管理人员、戏院经理、餐馆经理、售票员",
+  "SRI": "外科医师助手、医院服务员",
+  "SRE": "体育教师、职业病治疗者、体育教练、专业运动员、房管员、儿童家庭教师、警察、引座员、传达员、保姆",
+  "SRC": "护理员、护理助理、医院勤杂工、理发师、学校儿童服务人员",
+  "SIA": "社会学家、心理咨询者、学校心理学家、政治科学家、大学或学院的系主任、大学或学院的教育学教师、大学农业教师、大学工程和建筑课程的教师、大学法律教师、大学数学、医学、物理、社会科学和生命科学的教师、研究生助教、成人教育教师",
+  "SIE": "营养学家、饮食学家、海关检查员、安全检查员、税务稽查员、校长",
+  "SIC": "描图员、兽医助手、诊所助理、体检检验员、监督缓刑犯的工作者、娱乐指导者、咨询人员、社会科学教师",
+  "SIR": "理疗员、救护队工作人员、手足病医生、职业病治疗助手",
+  "SAC": "理发师、指甲修剪师、包装艺术家、美容师、整容专家、发式设计师",
+  "SAE": "听觉病治疗者、演讲矫正者"
+};
+
+// 存储答案
+let answers = {};
+
+// 渲染题目
+function renderQuestions() {
+  const section1 = document.getElementById('section1');
+  const section2 = document.getElementById('section2');
+  const section3 = document.getElementById('section3');
+  const section4 = document.getElementById('section4');
+  
+  questions.forEach(q => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    
+    let optionsHtml = '';
+    q.options.forEach((opt, idx) => {
+      const inputId = `q${q.id}_${idx}`;
+      optionsHtml += `
+        <input type="radio" id="${inputId}" name="q${q.id}" value="${idx}" onchange="selectAnswer(${q.id}, ${idx})">
+        <label for="${inputId}">${opt}</label>
+      `;
+    });
+    
+    qDiv.innerHTML = `
+      <div class="question-number">${q.id}.</div>
+      <div class="question-text">
+        ${q.text}
+        <span class="type-tag">${q.type}型</span>
+      </div>
+      <div class="options">${optionsHtml}</div>
+    `;
+    
+    if (q.section === 1) section1.appendChild(qDiv);
+    else if (q.section === 2) section2.appendChild(qDiv);
+    else if (q.section === 3) section3.appendChild(qDiv);
+    else section4.appendChild(qDiv);
+  });
+}
+
+// 选择答案
+function selectAnswer(qid, value) {
+  answers[qid] = value;
+  updateProgress();
+}
+
+// 更新进度
+function updateProgress() {
+  const answered = Object.keys(answers).length;
+  const total = questions.length;
+  const percent = (answered / total * 100).toFixed(1);
+  
+  document.getElementById('progressFill').style.width = percent + '%';
+  document.getElementById('progressText').textContent = `第 ${answered} / ${total} 题 (${percent}%)`;
+  
+  // 检查是否全部答完
+  if (answered === total) {
+    document.getElementById('submitBtn').disabled = false;
+  }
+}
+
+// 计算得分
+function calculateScores() {
+  const scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  
+  questions.forEach(q => {
+    const answer = answers[q.id];
+    if (answer === undefined) return;
+    
+    if (q.section <= 3) {
+      // 第1-3部分：选"是"（索引0）计1分，选"否"（索引1）计0分
+      if (answer === 0) scores[q.type] += 1;
+    } else {
+      // 第4部分：A(0)=1分, B(1)=2分, C(2)=3分, D(3)=0分
+      if (answer === 0) scores[q.type] += 1;
+      else if (answer === 1) scores[q.type] += 2;
+      else if (answer === 2) scores[q.type] += 3;
+      // answer 3 是"不太重要"，0分
+    }
+  });
+  
+  return scores;
+}
+
+// 绘制雷达图
+function drawRadar(scores) {
+  const canvas = document.getElementById('radarChart');
+  const ctx = canvas.getContext('2d');
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = 140;
+  
+  const types = ['R', 'I', 'A', 'S', 'E', 'C'];
+  const angleStep = (Math.PI * 2) / types.length;
+  
+  // 找最大分（每部分理论最高分：活动10+能力10+职业10+自评最高6 = 36，取40为满）
+  const maxScore = 36;
+  
+  // 清空
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // 画网格
+  ctx.strokeStyle = '#e0e0e0';
+  ctx.lineWidth = 1;
+  for (let level = 1; level <= 5; level++) {
+    const r = radius * level / 5;
+    ctx.beginPath();
+    for (let i = 0; i < types.length; i++) {
+      const angle = i * angleStep - Math.PI / 2;
+      const x = centerX + r * Math.cos(angle);
+      const y = centerY + r * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+  }
+  
+  // 画轴线
+  ctx.strokeStyle = '#ccc';
+  for (let i = 0; i < types.length; i++) {
+    const angle = i * angleStep - Math.PI / 2;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    
+    // 标签
+    const labelX = centerX + (radius + 25) * Math.cos(angle);
+    const labelY = centerY + (radius + 25) * Math.sin(angle);
+    ctx.fillStyle = '#333';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(types[i] + '型', labelX, labelY);
+  }
+  
+  // 画数据区域
+  ctx.beginPath();
+  for (let i = 0; i < types.length; i++) {
+    const score = scores[types[i]];
+    const r = radius * (score / maxScore);
+    const angle = i * angleStep - Math.PI / 2;
+    const x = centerX + r * Math.cos(angle);
+    const y = centerY + r * Math.sin(angle);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(102, 126, 234, 0.3)';
+  ctx.fill();
+  ctx.strokeStyle = '#667eea';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  // 画数据点
+  for (let i = 0; i < types.length; i++) {
+    const score = scores[types[i]];
+    const r = radius * (score / maxScore);
+    const angle = i * angleStep - Math.PI / 2;
+    const x = centerX + r * Math.cos(angle);
+    const y = centerY + r * Math.sin(angle);
+    
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#667eea';
+    ctx.fill();
+  }
+}
+
+// 提交测试
+function submitQuiz() {
+  const answered = Object.keys(answers).length;
+  if (answered < questions.length) {
+    alert('还有 ' + (questions.length - answered) + ' 道题没答完哦～');
+    return;
+  }
+  
+  const scores = calculateScores();
+  
+  // 设置测试日期
+  const now = new Date();
+  const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日';
+  document.getElementById('resultDate').textContent = dateStr;
+  
+  // 显示结果页
+  document.getElementById('quizSection').style.display = 'none';
+  document.getElementById('resultSection').style.display = 'block';
+  
+  // 渲染得分卡片
+  const scoreCard = document.getElementById('scoreCard');
+  const types = ['R', 'I', 'A', 'S', 'E', 'C'];
+  scoreCard.innerHTML = types.map(t => `
+    <div class="score-item">
+      <div class="type" style="color: ${typeColors[t]}">${t}</div>
+      <div class="type-name">${typeNames[t]}</div>
+      <div class="score">${scores[t]}</div>
+    </div>
+  `).join('');
+  
+  // 画雷达图
+  setTimeout(() => drawRadar(scores), 100);
+  
+  // 排序找出前3名
+  const sorted = types.sort((a, b) => scores[b] - scores[a]);
+  const top3 = sorted.slice(0, 3);
+  const careerCode = top3.join('');
+  const allPermutations = permutations(top3);
+  
+  // 职业代码
+  document.getElementById('careerCode').innerHTML = `
+    <div class="code">${careerCode}</div>
+    <div class="code-desc">您的霍兰德职业兴趣代码</div>
+  `;
+  
+  // 类型描述
+  const topType = sorted[0];
+  const desc = typeDescriptions[topType];
+  document.getElementById('resultDesc').innerHTML = `
+    <h3>你的主导类型：${typeNames[topType]}（${topType}型）</h3>
+    <h4>共同特点</h4>
+    <p>${desc.common}</p>
+    <h4>性格特点</h4>
+    <p>${desc.personality}</p>
+    <h4>典型职业</h4>
+    <p>${desc.careers}</p>
+  `;
+
+  // 6大维度深度解析
+  const dimAnalysis = document.getElementById('dimensionAnalysis');
+  const dimTypes = ['R', 'I', 'A', 'S', 'E', 'C'];
+  dimAnalysis.innerHTML = `
+    <h3>🔍 六大维度深度解析</h3>
+    ${dimTypes.map(t => `
+      <div class="dim-item">
+        <div class="dim-type" style="background: ${typeDescriptions[t].color}">${t}</div>
+        <div class="dim-info">
+          <div class="dim-name">
+            <span>${typeDescriptions[t].name}</span>
+            <span class="dim-score">${scores[t]}分</span>
+          </div>
+          <div class="dim-desc">${typeDescriptions[t].brief}</div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+
+  // 组合类型个性化解析
+  const comboAnalysis = document.getElementById('comboAnalysis');
+  const comboCode = top3.join('');
+  if (comboDescriptions[comboCode]) {
+    const combo = comboDescriptions[comboCode];
+    comboAnalysis.innerHTML = `
+      <h3>✨ 你的专属性格画像</h3>
+      <div class="combo-title">${combo.title}</div>
+      <div class="combo-desc">${combo.desc}</div>
+    `;
+  } else {
+    // 如果没有精确匹配的组合，用前两名组合
+    const top2Code = top3.slice(0, 2).join('') + top3[2];
+    let matched = false;
+    // 尝试所有前三位的排列组合
+    for (const perm of allPermutations) {
+      const code = perm.join('');
+      if (comboDescriptions[code]) {
+        const combo = comboDescriptions[code];
+        comboAnalysis.innerHTML = `
+          <h3>✨ 你的专属性格画像</h3>
+          <div class="combo-title">${combo.title}</div>
+          <div class="combo-desc">${combo.desc}</div>
+        `;
+        matched = true;
+        break;
+      }
+    }
+    // 还没找到就给一个通用描述
+    if (!matched) {
+      comboAnalysis.innerHTML = `
+        <h3>✨ 你的专属性格画像</h3>
+        <div class="combo-title">${comboCode}型 — 独一无二的你</div>
+        <div class="combo-desc">
+          你的霍兰德代码是${comboCode}，这意味着你同时具备${typeDescriptions[top3[0]].name}、${typeDescriptions[top3[1]].name}和${typeDescriptions[top3[2]].name}的特质。
+          这种组合让你在职场中拥有独特的竞争力——你既能发挥${typeDescriptions[top3[0]].brief.replace('，', '，也能在')}方面表现出色。
+          建议你寻找能够同时发挥这三种特质的工作，比如需要${typeDescriptions[top3[0]].brief.split('，')[0]}+${typeDescriptions[top3[1]].brief.split('，')[0]}的岗位，会让你更有成就感。
+        </div>
+      `;
+    }
+  }
+  
+  // 职业推荐
+  let careerHtml = '<h4>推荐职业方向</h4><ul>';
+  
+  // 查找对应的职业列表
+  let found = false;
+  for (const perm of allPermutations) {
+    const code = perm.join('');
+    if (careerCodes[code]) {
+      careerHtml += `<li><strong>${code}型：</strong>${careerCodes[code]}</li>`;
+      found = true;
+      break;
+    }
+  }
+  
+  if (!found) {
+    // 如果没找到精确匹配，显示前两种组合
+    for (let i = 0; i < 2 && i < allPermutations.length; i++) {
+      const code = allPermutations[i].join('');
+      if (careerCodes[code]) {
+        careerHtml += `<li><strong>${code}型：</strong>${careerCodes[code]}</li>`;
+      }
+    }
+  }
+  
+  careerHtml += '</ul>';
+  document.getElementById('careerList').innerHTML = careerHtml;
+  
+  // 滚动到顶部
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 生成排列组合
+function permutations(arr) {
+  if (arr.length <= 1) return [arr];
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
+    const perms = permutations(rest);
+    for (const perm of perms) {
+      result.push([arr[i], ...perm]);
+    }
+  }
+  return result;
+}
+
+// 重置
+function resetQuiz() {
+  answers = {};
+  document.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.checked = false;
+  });
+  document.getElementById('quizSection').style.display = 'block';
+  document.getElementById('resultSection').style.display = 'none';
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 复制测试链接
+function copyResultLink() {
+  // 复制当前页面的基础链接（不带code参数）
+  const baseUrl = window.location.origin + window.location.pathname;
+  navigator.clipboard.writeText(baseUrl).then(() => {
+    alert('链接已复制！分享给朋友一起来测吧～');
+  }).catch(() => {
+    // 降级方案
+    const input = document.createElement('input');
+    input.value = baseUrl;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    alert('链接已复制！分享给朋友一起来测吧～');
+  });
+}
+
+// 初始化
+checkUrlCode(); // 检查URL中的激活码参数
+renderQuestions();
+updateProgress();
+</script>
+</body>
+</html>
