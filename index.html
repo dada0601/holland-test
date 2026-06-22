@@ -114,6 +114,7 @@
   }
   .code-input-wrapper {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     max-width: 350px;
     margin: 0 auto 15px;
@@ -138,11 +139,12 @@
     color: #fff;
     border: none;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     white-space: nowrap;
     font-weight: 500;
+    width: 100%;
   }
   .code-submit-btn:hover {
     transform: translateY(-2px);
@@ -509,7 +511,7 @@
 <div class="container">
   <div class="header">
     <h1>霍兰德职业兴趣测试</h1>
-    <p>SDS 192题完整版 · 自动计分 · 免费使用</p>
+    <p>SDS 192题完整版 · 自动计分</p>
   </div>
   
   <div class="progress-bar" id="progressBar" style="display: none;"><div class="progress-fill" id="progressFill"></div></div>
@@ -522,10 +524,7 @@
     <p class="subtitle">霍兰德职业兴趣测试（SDS 192题完整版）</p>
     
     <div class="features">
-      <div class="feature-item">
-        <span class="feature-icon">📊</span>
-        <span class="feature-text">6大维度深度解析</span>
-      </div>
+
       <div class="feature-item">
         <span class="feature-icon">⏱️</span>
         <span class="feature-text">5分钟完成测试</span>
@@ -1186,6 +1185,12 @@ function renderQuestions() {
   const section3 = document.getElementById('section3');
   const section4 = document.getElementById('section4');
   
+  // 先清空，避免重复渲染
+  section1.innerHTML = '';
+  section2.innerHTML = '';
+  section3.innerHTML = '';
+  section4.innerHTML = '';
+  
   questions.forEach(q => {
     const qDiv = document.createElement('div');
     qDiv.className = 'question';
@@ -1409,7 +1414,7 @@ function submitQuiz() {
   const dimAnalysis = document.getElementById('dimensionAnalysis');
   const dimTypes = ['R', 'I', 'A', 'S', 'E', 'C'];
   dimAnalysis.innerHTML = `
-    <h3>🔍 六大维度深度解析</h3>
+    <h3>🔍 六大维度</h3>
     ${dimTypes.map(t => `
       <div class="dim-item">
         <div class="dim-type" style="background: ${typeDescriptions[t].color}">${t}</div>
